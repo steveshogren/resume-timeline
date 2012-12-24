@@ -14,7 +14,7 @@ $(function (){
         {
             title: "Software Developer",
             company: "ReminderMedia",
-            skills: ["php", "phpunit", "tdd", "apache", "pair-programming", "mysql", "linux"],
+            skills: ["PHP", "PHPunit", "TDD", "Apache", "Pair-Programming", "MySQL"],
             location: "October 2009 - March 2011",
             summary: ["Developed clean code using test-driven design while striving for pragmatically high code coverage in PHP using phpunit. Trained three new developers through pair programming and self-designed evaluation documentation. Revised interview process, authoring a partially completed project for candidates to complete before the interview, giving them time to do their best and show more then just the typical “fizzbuzz”. Implemented “two pairs of eyes per line” code review practices with all team members using Kiln.",
                       "Refactored an authorization and authentication module for our external site using modern security practices and methods. Remodeled legacy systems by: bringing them under test, refactoring for clarity, and breaking apart where needed to better meet the underlying core domain model. Pair programmed a team management module for our customer service department that tripled conversion speed. Partnered with another developer in testing and rewriting the core business printing module, which is still responsible for composing and printing hundreds of thousands of uniquely customized magazines every week. ",
@@ -22,14 +22,16 @@ $(function (){
         },
     ],
     makeSkillsHtml = function(skills) {
-        return '<span class="btn-other">' + skills.join('</span> <span class="btn-other">') + "</span>";
+        return "<span class=\"btn-other\">" + skills.join("</span> <span class=\"btn-other\">") + "</span>";
     },
     makeJobToHtml = function(job) {
-        return "<h5>" + job.title + " <span class=\"muted\">" + job.company + " - " + job.location + "</span></h5><p>" + job.summary.join("</p><p>") + "</p>";
+        return "<h5>" + job.title
+            + " <span class=\"muted\">" + job.company + " - " + job.location + "</span></h5>"
+            + makeSkillsHtml(job.skills) + "<p>" + job.summary.join("</p><p>") + "</p>";
     },
     strReduce = function(list, func, join) {
-        $.map(list, func).join(join);
+        return $.map(list, func).join(join);
     };
     $("#xp").html(strReduce(job_info, makeJobToHtml, ' ')); 
-    $("#skills").html(strReduce(skills, makeSkillsHtml, ' ')); 
+    $("#skills").html(makeSkillsHtml(skills)); 
 });
