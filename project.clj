@@ -2,6 +2,8 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.4.0"]
+                 [hiccup "1.0.2"]
+                 [org.clojure/clojure-contrib "1.2.0"]
                  [compojure "1.1.3"]]
   :plugins [[lein-ring "0.7.5"]]
   :ring {:handler resume-timeline.handler/app}
