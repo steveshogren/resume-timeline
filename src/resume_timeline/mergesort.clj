@@ -15,8 +15,20 @@
        (== (count l) 1) l
        (== 1 1) (merge-l (map m-sort (split-at (floor (/ (count l) 2)) l)))))
 
-(defn merge-l [[a b]]
-  (loop [left right]
+(defn merge-l [[o-lefts o-rights]]
+  (loop [lefts o-lefts
+         rights o-rights
+         return []]
     (cond
-     (> (first left) (first right)))))
+     (empty? lefts) (concat return rights)
+     (empty? rights) (concat return lefts)
+     :else (let [left (first lefts)
+                 right (first rights)]
+             (cond
+              (< left right)  (recur (rest lefts)
+                                     rights
+                                     (conj return left))
+              (> left right)  (recur lefts
+                                     (rest rights)
+                                     (conj return right)))))))
 
