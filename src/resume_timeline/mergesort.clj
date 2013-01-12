@@ -2,22 +2,19 @@
   (:use clojure.contrib.math
         clojure.test))
 
-(declare merge-sort m-sort merge-l)
+(declare merge-sort merge-lists)
 
 ;;  Mergesort(A [1, n])
 ;;    Merge (Mergesort(A[1,[n/2]]), Mergesort(A[[n/2]+1,n]))
 
 (defn merge-sort [list]
-  (m-sort list))
+  (cond
+   (== (count list) 1) list
+   :else (merge-lists (map merge-sort (split-at (floor (/ (count list) 2)) list)))))
 
-(defn m-sort
-  [l] (cond
-       (== (count l) 1) l
-       (== 1 1) (merge-l (map m-sort (split-at (floor (/ (count l) 2)) l)))))
-
-(defn merge-l [[o-lefts o-rights]]
-  (loop [lefts o-lefts
-         rights o-rights
+(defn merge-lists [[orig-left-list orig-right-list]]
+  (loop [lefts orig-left-list
+         rights orig-right-list
          return []]
     (cond
      (empty? lefts) (concat return rights)
