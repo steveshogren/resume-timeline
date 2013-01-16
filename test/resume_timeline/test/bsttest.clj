@@ -3,27 +3,26 @@
         ring.mock.request  
         resume-timeline.bst))
 
-(declare make-balanced-tree mN)
+(declare make-balanced-tree)
 
-(deftest test-tree-making
+(deftest tree-search
   (is (= :false (in-tree? 9 (make-balanced-tree))))
   (is (= :false (in-tree? 9 nil)))
   (is (= :true (in-tree? 7 (make-balanced-tree)))))
 
-(defn mN
-  ([val color] (mN val color nil nil))
-  ([val color left] (mN val color left nil))
-  ([val color left right]
-     (struct-map bintree :left left :right right :key val :color color))) 
+(deftest tree-insert
+  (is (= (make-node 5 :black) (insert 5 nil)))
+  (is (= (make-node 5 :black (make-node 3 :red)) (insert 3 (insert 5)))))
+
 
 (defn make-balanced-tree []
-  (mN 8 :black
-      (mN 3 :red
-          (mN 1 :black)
-          (mN 6 :black
-              (mN 4 :red)
-              (mN 7 :red)))
-      (mN 10 :red
+  (make-node 8 :black
+      (make-node 3 :red
+          (make-node 1 :black)
+          (make-node 6 :black
+              (make-node 4 :red)
+              (make-node 7 :red)))
+      (make-node 10 :red
           nil
-          (mN 14 :black
-              (mN 13 :red)))))
+          (make-node 14 :black
+              (make-node 13 :red)))))
