@@ -15,8 +15,11 @@
             (> needle (:key node)) (recur (:right node))
             (< needle (:key node)) (recur (:left node))))))
 
-#_(defn insert
-  ([key node]
+(defn needs-rotation?
+  [node] :false)
+
+(defn insert
+  #_([key node]
      (loop [key node parent]
        (cond
         (nil? node) ()
