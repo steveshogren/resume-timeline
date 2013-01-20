@@ -1,5 +1,5 @@
 # resume-timeline
-
+This is a site to show some basics of algorithms in a functional paradigm.
 
 ## Prerequisites
 
@@ -15,13 +15,7 @@ To start a web server for the application, run:
 
 ## Deploying
 
-
     git push heroku master
 
 The site can be viewed at:
 http://glacial-harbor-6956.herokuapp.com
-
-
-## License
-
-Copyright © 2012 FIXME
