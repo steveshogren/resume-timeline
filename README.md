@@ -1,4 +1,4 @@
-# resume-timeline
+# Functional Algorithms
 This is a site to show some basics of algorithms in a functional paradigm.
 
 ## Prerequisites
