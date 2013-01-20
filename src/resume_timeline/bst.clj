@@ -1,6 +1,6 @@
 (ns resume-timeline.bst)
 
-(declare make-node)
+(declare make-node !parent-color)
 
 (defstruct bintree :left :right :key :val :color :parent)
 
@@ -19,14 +19,22 @@
   [node] :false)
 
 (defn insert
-  #_([key node]
-     (loop [key node parent]
+  ([k n]
+     (loop [key k node n]
        (cond
-        (nil? node) ()
-        (> key (:key node)) (recur (:right node))
-        (< key (:key node)) (recur (:left node))))
-     (make-node key :black))
+        (nil? node) :false 
+        (> key (:key node)) (cond
+                             (nil? (:right node)) (assoc node :right (make-node key (!parent-color node)))
+                             :else :false)
+        (< key (:key node)) (cond
+                             (nil? (:left node)) (assoc node :left (make-node key (!parent-color node)))
+                             :else :false))))
   ([key] (make-node key :black)))
+
+(defn !parent-color [parent]
+  (cond
+   (= :red (:color parent)) :black
+   :else :red))
 
 (defn make-node
   ([key color] (make-node key color nil nil))

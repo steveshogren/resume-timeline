@@ -12,7 +12,10 @@
 
 (deftest tree-insert
   (is (= (make-node 5 :black) (insert 5)))
-  #_(is (= (make-node 5 :black (make-node 3 :red)) (insert 3 (insert 5)))))
+  (is (= (make-node 5 :black
+                    (make-node 3 :red)
+                    (make-node 7 :red))
+         (insert 7 (insert 3 (insert 5))))))
 
 (deftest tree-invariant-checking
   (is (= (:false (needs-rotation? (insert 5))))))
