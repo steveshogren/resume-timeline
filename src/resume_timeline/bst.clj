@@ -2,7 +2,7 @@
 
 (declare make-node !parent-color add-as-child)
 
-(defstruct bintree :left :right :key :val :color :parent)
+(defstruct bintree :key :left :right :color)
 
 (defn in-tree?
   "Returns true if the element is in the struct"
@@ -19,20 +19,18 @@
   [node] :false)
 
 (defn insert
-  ([k n]
-     (loop [key k node n]
-       (cond
-        (nil? node) :false 
-        (> key (:key node)) (add-as-child node :right key)
-        (< key (:key node)) (add-as-child node :left key))))
+  ([node key]
+     (cond
+      (> key (:key node)) (add-as-child node :right key)
+      (< key (:key node)) (add-as-child node :left key)))
   ([key] (make-node key :black)))
 
 (defn add-as-child [node side key]
-  (cond
-   (nil? (side node)) (assoc node
-                        side
-                        (make-node key (!parent-color node)))
-   :else :false))
+  (assoc node
+      side
+      (cond
+       (nil? (side node)) (make-node key (!parent-color node))
+       :else (insert (side node) key))))
 
 (defn !parent-color [parent]
   (cond
